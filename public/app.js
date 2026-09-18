@@ -1,47 +1,13 @@
 const socket = io();
-let currentUser = null;
 let allBots = [];
 let selectedEmoji = '❤️';
 
-// ================= AUTH =================
-async function doLogin() {
-  const username = document.getElementById('login-user').value.trim();
-  const password = document.getElementById('login-pass').value;
-  const err = document.getElementById('login-error');
-  err.textContent = '';
-
-  const res = await fetch('/api/auth/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ username, password })
-  });
-  const data = await res.json();
-  if (!res.ok) { err.textContent = data.error; return; }
-  currentUser = data.user;
-  enterApp();
-}
-
-async function doLogout() {
-  await fetch('/api/auth/logout', { method: 'POST' });
-  location.reload();
-}
-
-async function checkSession() {
-  const res = await fetch('/api/auth/me');
-  if (res.ok) {
-    currentUser = await res.json();
-    enterApp();
-  }
-}
-
-function enterApp() {
-  document.getElementById('login-screen').classList.remove('active');
-  document.getElementById('app-screen').classList.add('active');
-  document.getElementById('current-user').textContent = '👤 ' + currentUser.username;
+// ================= BOOT (Login නෑ - කෙලින්ම load) =================
+window.addEventListener('DOMContentLoaded', () => {
   loadBots();
   loadAutoTasks();
   initChart();
-}
+});
 
 // ================= TABS =================
 document.querySelectorAll('.tab').forEach(tab => {
@@ -180,7 +146,7 @@ async function deleteBot(botId) {
   loadAutoTasks();
 }
 
-// ================= REACT + FOLLOW (MAIN) =================
+// ================= REACT + FOLLOW =================
 async function sendReactFollow() {
   const channelUrl = document.getElementById('react-url').value.trim();
   const box = document.getElementById('react-result');
@@ -375,6 +341,3 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
-
-// ================= BOOT =================
-checkSession();

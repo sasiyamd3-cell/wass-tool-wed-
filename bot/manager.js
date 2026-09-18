@@ -25,9 +25,9 @@ async function loadBotsFromDB() {
   } catch (e) { console.error('Load bots error:', e.message); }
 }
 
-async function createBot({ name, owner }) {
+async function createBot({ name }) {
   const botId = 'BOT_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
-  const bot = await Bot.create({ botId, name, owner });
+  const bot = await Bot.create({ botId, name });
   broadcast('bots:list:refresh');
   return bot;
 }
@@ -50,7 +50,6 @@ async function disconnectBot(botId) {
     await bot.save();
     broadcast('bots:update', bot);
   }
-  // Remove auto tasks
   await AutoTask.deleteMany({ botId });
   return bot;
 }

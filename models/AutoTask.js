@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 const autoTaskSchema = new mongoose.Schema({
   botId: { type: String, required: true },
-  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   type: { type: String, enum: ['react'], default: 'react' },
   channelJid: { type: String, required: true },
   channelUrl: String,

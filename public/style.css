@@ -8,38 +8,6 @@ body {
 .screen { display: none; }
 .screen.active { display: block; }
 
-/* LOGIN */
-#login-screen { display: flex; align-items: center; justify-content: center; height: 100vh; }
-.login-box {
-  background: rgba(30,41,59,0.6);
-  backdrop-filter: blur(20px);
-  padding: 40px; border-radius: 20px;
-  border: 1px solid rgba(99,102,241,0.3);
-  box-shadow: 0 0 60px rgba(99,102,241,0.4);
-  text-align: center; width: 90%; max-width: 380px;
-}
-.login-box h1 {
-  background: linear-gradient(90deg,#6366f1,#a855f7,#ec4899);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  font-size: 32px; margin-bottom: 8px;
-}
-.login-box p { color: #94a3b8; margin-bottom: 25px; font-size: 14px; }
-.login-box input {
-  width: 100%; padding: 14px; margin-bottom: 12px;
-  background: rgba(15,23,42,0.7); border: 1px solid #334155;
-  border-radius: 10px; color: white; font-size: 15px;
-}
-.login-box input:focus { outline: none; border-color: #6366f1; }
-.login-box button {
-  width: 100%; padding: 14px;
-  background: linear-gradient(90deg,#6366f1,#a855f7);
-  color: white; border: none; border-radius: 10px;
-  font-size: 16px; font-weight: bold; cursor: pointer;
-  transition: 0.3s;
-}
-.login-box button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(99,102,241,0.5); }
-.error { color: #ef4444; margin-top: 10px; font-size: 14px; }
-
 /* HEADER */
 header {
   display: flex; justify-content: space-between; align-items: center;
@@ -54,13 +22,7 @@ header {
   background: linear-gradient(90deg,#6366f1,#a855f7,#ec4899);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-.user-info { display: flex; align-items: center; gap: 12px; font-size: 14px; color: #94a3b8; }
-.logout-btn {
-  padding: 8px 14px; background: rgba(239,68,68,0.15);
-  color: #f87171; border: 1px solid rgba(239,68,68,0.4);
-  border-radius: 8px; cursor: pointer; font-size: 13px;
-}
-.logout-btn:hover { background: rgba(239,68,68,0.3); }
+.user-info { display: flex; align-items: center; gap: 12px; font-size: 14px; }
 
 /* TABS */
 .tabs {

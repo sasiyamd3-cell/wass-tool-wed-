@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sasiya MD — WA Tools Panel</title>
+  <link rel="stylesheet" href="/style.css" />
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- LOGIN -->
+  <div id="login-screen" class="screen active">
+    <div class="login-box">
+      <h1>⚡ SASIYA MD</h1>
+      <p>WA Tools Panel v3.0</p>
+      <input id="login-user" placeholder="Username" value="admin" />
+      <input id="login-pass" type="password" placeholder="Password" value="admin123" />
+      <button onclick="doLogin()">Login 🚀</button>
+      <div id="login-error" class="error"></div>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="app-screen" class="screen">
+    <header>
+      <div class="logo">⚡ SASIYA MD</div>
+      <div class="user-info">
+        <span id="current-user"></span>
+        <button class="logout-btn" onclick="doLogout()">Logout</button>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="dashboard">📊 Dashboard</button>
+      <button class="tab" data-tab="bots">🤖 Bots</button>
+      <button class="tab" data-tab="react">⚡ React+Follow</button>
+      <button class="tab" data-tab="poll">📊 Poll</button>
+    </nav>
+
+    <main>
+      <!-- DASHBOARD -->
+      <section id="tab-dashboard" class="tab-content active">
+        <div class="stat-grid">
+          <div class="stat-card"><h3>Total Bots</h3><div id="stat-total">0</div></div>
+          <div class="stat-card"><h3>Online</h3><div id="stat-online">0</div></div>
+          <div class="stat-card"><h3>Offline</h3><div id="stat-offline">0</div></div>
+          <div class="stat-card"><h3>Auto Tasks</h3><div id="stat-tasks">0</div></div>
+        </div>
+        <div class="chart-box">
+          <h3>Bot Activity</h3>
+          <canvas id="activityChart" height="120"></canvas>
+        </div>
+      </section>
+
+      <!-- BOTS -->
+      <section id="tab-bots" class="tab-content">
+        <div class="section-header">
+          <h2>My Bots</h2>
+          <button class="btn-primary" onclick="openAddBot()">+ Add Bot</button>
+        </div>
+        <div id="bots-list" class="bot-grid"></div>
+      </section>
+
+      <!-- REACT + FOLLOW -->
+      <section id="tab-react" class="tab-content">
+        <h2>⚡ Auto React + Follow Engine</h2>
+
+        <div class="info-banner">
+          💡 චැනල් URL එක දාන්න → Bot එක automatic <b>follow</b> කරයි,
+          දැන් තියෙන post එකට <b>react</b> කරයි,
+          ඊට පස්සේ <b>හැම අලුත් post එකකටත් auto-react</b> කරයි!
+        </div>
+
+        <div class="form-box">
+          <label>📎 WhatsApp Channel Post URL</label>
+          <input id="react-url" placeholder="https://whatsapp.com/channel/0029Vb.../1234" />
+
+          <label>😍 Reaction Emoji (click to select)</label>
+          <div class="emoji-picker" id="emoji-picker">
+            <span class="emoji-opt active" data-emoji="❤️">❤️</span>
+            <span class="emoji-opt" data-emoji="🔥">🔥</span>
+            <span class="emoji-opt" data-emoji="🚀">🚀</span>
+            <span class="emoji-opt" data-emoji="👍">👍</span>
+            <span class="emoji-opt" data-emoji="😂">😂</span>
+            <span class="emoji-opt" data-emoji="😮">😮</span>
+            <span class="emoji-opt" data-emoji="😢">😢</span>
+            <span class="emoji-opt" data-emoji="🙏">🙏</span>
+            <span class="emoji-opt" data-emoji="💯">💯</span>
+            <span class="emoji-opt" data-emoji="🎉">🎉</span>
+          </div>
+
+          <button class="btn-primary btn-glow" onclick="sendReactFollow()">
+            🚀 Follow + React + Activate Auto
+          </button>
+
+          <div id="react-result" class="result"></div>
+        </div>
+
+        <h3 style="margin-top:30px; color:#a5b4fc;">📋 Active Auto-React Tasks</h3>
+        <div id="auto-tasks-list" class="auto-tasks-list">
+          <p style="color:#94a3b8;">Loading...</p>
+        </div>
+      </section>
+
+      <!-- POLL -->
+      <section id="tab-poll" class="tab-content">
+        <h2>📊 Create Poll</h2>
+        <div class="form-box">
+          <label>Group JID</label>
+          <input id="poll-jid" placeholder="1234567890-1234@g.us" />
+          <label>Question</label>
+          <input id="poll-q" placeholder="Your question?" />
+          <label>Options (one per line)</label>
+          <textarea id="poll-opts" rows="4" placeholder="Option 1&#10;Option 2&#10;Option 3"></textarea>
+          <button class="btn-primary" onclick="sendPoll()">Create Poll 📊</button>
+          <div id="poll-result" class="result"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3 id="modal-title">Add Bot</h3>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
